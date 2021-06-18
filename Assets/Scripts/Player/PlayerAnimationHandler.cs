@@ -32,6 +32,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /* --- 
         bool mouseClicked = Input.GetMouseButtonDown(0);
         bool forwardPressed = Input.GetKey("w");
         bool leftPressed = Input.GetKey("a");
@@ -61,7 +62,7 @@ public class PlayerAnimationHandler : MonoBehaviour
             // TODO
         }
         
-        VelocityHandler(forwardPressed, leftPressed, rightPressed, runPressed, backPressed);
+        VelocityHandler();
     }
 
     void MovementHandler() {
@@ -85,96 +86,13 @@ public class PlayerAnimationHandler : MonoBehaviour
         } else {
             controller.Move(Vector3.zero);  
         }
-
+        
     }
 
-    void VelocityHandler(bool forwardPressed, bool leftPressed, bool rightPressed, bool runPressed, bool backPressed) {
+    void VelocityHandler() {
 
-     
         velocityZ = controller.velocity.magnitude;
 
-
-        /*if ((forwardPressed || leftPressed || rightPressed || backPressed) && velocityZ < currentMaxVelocity) {
-            velocityZ = controller.velocity.magnitude + Time.deltaTime * acceleration;
-        }
-
-        if (!(forwardPressed || leftPressed || rightPressed || backPressed) && velocityZ > 0.0f) {
-            velocityZ = controller.velocity.magnitude - Time.deltaTime * acceleration;
-        }
-
-        if (!(forwardPressed || leftPressed || rightPressed || backPressed) && velocityZ < 0.0f)
-        {
-            velocityZ = 0.0f;
-        }*/
-        
-       
-        /*
-
-        if (backPressed && velocityZ > -currentMaxVelocity)
-        {
-            velocityZ -= Time.deltaTime * acceleration;
-            Debug.Log("VelZ");
-            Debug.Log(velocityZ);
-            
-        }
-
-        if (forwardPressed && velocityZ < currentMaxVelocity)
-        {
-            velocityZ += Time.deltaTime * acceleration;
-        }
-
-
-        if (leftPressed && velocityX > -currentMaxVelocity)
-        {
-            velocityX -= Time.deltaTime * acceleration;
-        }
-
-        // increase velocity right
-        // reset Z
-        if (rightPressed && velocityX < currentMaxVelocity)
-        {
-            velocityX += Time.deltaTime * acceleration;
-        }
-
-        // decrease VelocityZ
-
-        if (!forwardPressed && !backPressed && velocityZ > 0.0f)
-        {
-            velocityZ -= Time.deltaTime * deceleration;
-        }
-
-        // reset VelocityZ
-        if (!forwardPressed && !backPressed && velocityZ < 0.0f)
-        {
-            velocityZ = 0.0f;
-        }
-
-        // increase VelX if left not pressed
-        if (!leftPressed && !backPressed  && velocityX < 0.0f)
-        {
-            velocityX += Time.deltaTime * deceleration;
-        }
-
-        // decrease velX if right not pressed
-        if (!rightPressed && !backPressed  && velocityX > 0.0f)
-        {
-            velocityX -= Time.deltaTime * deceleration;
-        }
-
-        // reset velX
-        if (!leftPressed && !rightPressed && velocityX != 0.0f && (velocityX > -0.05f && velocityX < 0.05f))
-        {
-            velocityX = 0.0f;
-        }
-        
-        // lock forward
-        if (forwardPressed && runPressed && velocityZ > currentMaxVelocity)
-        {
-            velocityZ = currentMaxVelocity;
-        }
-
-        
-        */
         animator.SetFloat("VelocityZ", velocityZ);
     }
 
@@ -202,7 +120,7 @@ public class PlayerAnimationHandler : MonoBehaviour
             hit = !hit;
             animator.SetBool("mirrored", hit);
             Debug.Log(hit);
-        }
+        } --- */ 
  
     }
 }
