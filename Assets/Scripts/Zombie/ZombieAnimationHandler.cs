@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class zombie_movement : MonoBehaviour
+public class ZombieAnimationHandler : MonoBehaviour
 {
     public Transform player;
     float MoveSpeed = 0.8f;
@@ -29,7 +29,7 @@ public class zombie_movement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         isHit = false;
         isDead = false;
         isHitting = animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_hitting");
@@ -88,6 +88,6 @@ public class zombie_movement : MonoBehaviour
                 //Here Call any function U want Like Shoot at here or something
             }
 
-        }
+        }*/
     }
 }
