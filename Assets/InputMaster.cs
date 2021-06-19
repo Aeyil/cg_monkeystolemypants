@@ -64,7 +64,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""1febd2b0-9cf4-4fc5-b9ba-f9ba8cd83139"",
                     ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard+Mouse"",
                     ""action"": ""Run"",
