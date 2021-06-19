@@ -6,40 +6,22 @@ public class PlayerAnimationHandler : MonoBehaviour
 {
 
     Animator animator;
-    public float velocityZ = 0.0f;
-    public float velocityX = 0.0f;
-    public float acceleration = 2.0f;
-    public float deceleration = 2.0f;
-    public float maxWalkVelocity = 0.5f;
-    public float maxRunVelocity = 2f;
-    float distance  = 5;
-    bool hit = false;
-    CharacterController controller;
-    [SerializeField] Transform camera;
-    float turnSmoothVelocity;
-    Vector3 runSmoothVelocity;
-    public float runSmoothTime = 1.0f;
-    public float turnSmoothTime = 0.1f;
-
+    public float velocity = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        controller = GetComponent<CharacterController>();
     }
 
+    private void Update() {
+        animator.SetFloat("Velocity", velocity);
+    }
+
+/*
     // Update is called once per frame
     void Update()
     {
-        /* --- 
-        bool mouseClicked = Input.GetMouseButtonDown(0);
-        bool forwardPressed = Input.GetKey("w");
-        bool leftPressed = Input.GetKey("a");
-        bool rightPressed = Input.GetKey("d");
-        bool runPressed = Input.GetKey("left shift");
-        bool backPressed = Input.GetKey("s");
-
         animator.SetBool("isHit", false);
         if (Input.GetKey("n"))
         {
@@ -120,7 +102,7 @@ public class PlayerAnimationHandler : MonoBehaviour
             hit = !hit;
             animator.SetBool("mirrored", hit);
             Debug.Log(hit);
-        } --- */ 
+        } ---  
  
-    }
+    }*/
 }
