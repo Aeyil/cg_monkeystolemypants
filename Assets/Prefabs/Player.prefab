@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 7206156001291619116}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -950,15 +950,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa68cb6ee58904ca3eaf568495437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityZ: 0
-  velocityX: 0
-  acceleration: 2
-  deceleration: 2
-  maxWalkVelocity: 0.5
-  maxRunVelocity: 2
-  camera: {fileID: 0}
-  runSmoothTime: 1
-  turnSmoothTime: 0.1
+  velocity: 0
+  isRolling: 0
+  isRollAnimation: 0
 --- !u!143 &7113087634553189385
 CharacterController:
   m_ObjectHideFlags: 0
@@ -990,6 +984,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
+  runSmoothTime: 1
+  turnSmoothTime: 0.1
+  speed: 3
+  sprintSpeed: 5
+  rollSpeed: 5
+  isMoving: 0
+  isSprinting: 0
+  isRolling: 0
+  isAttacking: 0
+  canAct: 0
+  canBeHit: 0
 --- !u!114 &7206156001291619116
 MonoBehaviour:
   m_ObjectHideFlags: 0
