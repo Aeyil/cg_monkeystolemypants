@@ -26,51 +26,78 @@ public class PlayerMovement : MonoBehaviour
     public bool isMoving;
     public bool isSprinting;
     public bool isRolling;
+    public bool isAttacking;
+    public bool canAct;
+    public bool canBeHit;
 
     PlayerAnimationHandler animationHandler;
 
     void Awake() {
         input = new InputMaster();
 
-        input.PlayerControls.Movement.performed += ctx => handleMovementInput(ctx);
-        input.PlayerControls.Movement.canceled += ctx => handleMovementInput(ctx);
-        input.PlayerControls.Run.performed += ctx => handleSprinting(ctx);
+        input.PlayerControls.Movement.performed += ctx => HandleMovementInput(ctx);
+        input.PlayerControls.Movement.canceled += ctx => HandleMovementInput(ctx);
+        input.PlayerControls.Run.performed += ctx => HandleSprinting(ctx);
         input.PlayerControls.Roll.performed += ctx => handleRolling(ctx);
+        input.PlayerControls.Attack.performed += ctx => HandleAttack(ctx);
     }
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animationHandler = GetComponent<PlayerAnimationHandler>();
+        canAct = true;
+        canBeHit = true;
     }
 
     void Update() {
-        move();
-        Debug.Log(isSprinting);
+        Move();
     }
 
-    public void handleRolling(InputAction.CallbackContext value) {
-        if (isMoving)
+    public void HandleRolling(InputAction.CallbackContext value) {
+        if (isMoving && canAct)
         {
             isRolling = true;
+            canAct = false;
             animationHandler.StartRoll();
         }
     }
 
-    public void handleMovementInput(InputAction.CallbackContext value){
+    public void HandleMovementInput(InputAction.CallbackContext value){
         movementInput = value.ReadValue<Vector2>();
         isMoving = movementInput.x != 0 || movementInput.y != 0;
     }
 
-    public void handleSprinting(InputAction.CallbackContext value){
+    public void HandleSprinting(InputAction.CallbackContext value){
         isSprinting = !isSprinting;
     }
+
+    public void HandleAttack(InputAction.CallbackContext value){
+        if(canAct){
+            isAttacking = true;
+            canAct = false;
+            animationHandler.StartAttack();
+        }
+    }
    
+    public void GetHit(){
+        if(!isRolling && canBeHit){
+            isAttacking = false;
+            canAct = false;
+            animationHandler.StartStagger();
+        }
+    }
 
-    public void move(){
-       
+    public void Die(){
+        if(canBeHit){
+            isAttacking = false;
+            canAct = false;
+            animationHandler.StartDeath();
+        }
+    }
 
-        if (isMoving && !isRolling) {
+    public void Move(){
+        if (isMoving && !isRolling && !isAttacking && canAct) {
             float targetAngle = Mathf.Atan2(movementInput.x, movementInput.y) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
