@@ -372,7 +372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258223236}
-  m_LocalRotation: {x: 0.06310413, y: 0.7042855, z: -0.06310416, w: 0.7042852}
+  m_LocalRotation: {x: 0.089242734, y: -0.000000029991018, z: 0.0000000026872033, w: 0.99600995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409821654}
-  m_LocalRotation: {x: 0.10039996, y: 0.6999429, z: -0.10040001, w: 0.6999426}
+  m_LocalRotation: {x: 0.14198703, y: -1.799712e-17, z: -3.0174993e-17, w: 0.9898685}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -606,6 +606,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1299088575}
+    - target: {fileID: 4112134620686459259, guid: e32466414f4b60844ac75440e8946f31, type: 3}
+      propertyPath: rollSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4141840979973151134, guid: e32466414f4b60844ac75440e8946f31, type: 3}
       propertyPath: isRollAnimation
       value: 1
@@ -991,7 +995,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135397471}
-  m_LocalRotation: {x: 0.06310413, y: 0.7042855, z: -0.06310416, w: 0.7042852}
+  m_LocalRotation: {x: 0.089242734, y: -0.000000029991018, z: 0.0000000026872033, w: 0.99600995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1202,8 +1206,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299088572}
-  m_LocalRotation: {x: 0.06310413, y: 0.7042855, z: -0.06310416, w: 0.7042852}
-  m_LocalPosition: {x: 6.5, y: 1.8, z: 0.00000071525574}
+  m_LocalRotation: {x: 0.08924274, y: -0.000000029991018, z: 0.0000000026872036, w: 0.99600995}
+  m_LocalPosition: {x: 8.5, y: 1.8, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

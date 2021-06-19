@@ -178,10 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2209960803142712820, guid: e32466414f4b60844ac75440e8946f31, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4112134620686459259, guid: e32466414f4b60844ac75440e8946f31, type: 3}
       propertyPath: camera
       value: 
@@ -492,10 +488,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2070435482}
-    - target: {fileID: 748882598075230149, guid: 74693096c2407d94c88e3a51ef6a1271, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 2143549056}
     - target: {fileID: 2418931500647481391, guid: 74693096c2407d94c88e3a51ef6a1271, type: 3}
       propertyPath: m_Name
       value: Zombie
@@ -1215,11 +1207,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1576412738814207822, guid: e32466414f4b60844ac75440e8946f31, type: 3}
   m_PrefabInstance: {fileID: 519316959}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2143549056 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: -8316681140917897947, guid: 74693096c2407d94c88e3a51ef6a1271, type: 3}
-  m_PrefabInstance: {fileID: 816778938}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1795734100234224791
 PrefabInstance:
