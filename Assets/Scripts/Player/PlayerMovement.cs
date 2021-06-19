@@ -21,9 +21,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 currentMovement;
     [SerializeField] float speed = 3f;
     [SerializeField] float sprintSpeed= 5f;
+    [SerializeField] float rollSpeed = 15f;
 
-    bool isMoving;
-    bool isSprinting;
+    public bool isMoving;
+    public bool isSprinting;
+    public bool isRolling;
 
     PlayerAnimationHandler animationHandler;
 
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         input.PlayerControls.Movement.performed += ctx => handleMovementInput(ctx);
         input.PlayerControls.Movement.canceled += ctx => handleMovementInput(ctx);
         input.PlayerControls.Run.performed += ctx => handleSprinting(ctx);
+        input.PlayerControls.Roll.performed += ctx => handleRolling(ctx);
     }
 
     void Start()
@@ -46,6 +49,14 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(isSprinting);
     }
 
+    public void handleRolling(InputAction.CallbackContext value) {
+        if (isMoving)
+        {
+            isRolling = true;
+            animationHandler.StartRoll();
+        }
+    }
+
     public void handleMovementInput(InputAction.CallbackContext value){
         movementInput = value.ReadValue<Vector2>();
         isMoving = movementInput.x != 0 || movementInput.y != 0;
@@ -54,18 +65,27 @@ public class PlayerMovement : MonoBehaviour
     public void handleSprinting(InputAction.CallbackContext value){
         isSprinting = !isSprinting;
     }
+   
 
     public void move(){
-        if(isMoving){
+       
+
+        if (isMoving && !isRolling) {
             float targetAngle = Mathf.Atan2(movementInput.x, movementInput.y) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             currentMovement = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
             float appliedSpeed = isSprinting ? sprintSpeed : speed;
-            controller.Move(currentMovement*appliedSpeed*Time.deltaTime);
+            controller.Move(currentMovement * appliedSpeed * Time.deltaTime);
             animationHandler.velocity = controller.velocity.magnitude;
         }
-        else{
+        else if (isRolling) {
+            transform.LookAt(currentMovement + transform.position);
+            controller.Move(currentMovement * rollSpeed * Time.deltaTime);
+            animationHandler.velocity = controller.velocity.magnitude;
+
+        }
+        else {
             currentMovement = Vector3.zero;
             animationHandler.velocity = 0;
         }
