@@ -15,7 +15,11 @@ public class PlayerAnimationHandler : MonoBehaviour
     bool animatorHit;
     bool animatorHit2;
     bool animatorStagger;
+    bool staggerHelper;
+    bool staggerHelper2;
 
+    bool deadHelper;
+    bool deadHelper2;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +33,26 @@ public class PlayerAnimationHandler : MonoBehaviour
         
 
         CheckAnimationTransition();
-        //PrevAnimationHash = animator.GetCurrentAnimatorStateInfo(0);
         SetPrevAnimation();
+
+        // Trigger Stagger correctly
+        if(staggerHelper2){
+            staggerHelper2 = false;
+            animator.SetBool("isHit",false);
+        }
+        if(staggerHelper){
+            staggerHelper = false;
+            staggerHelper2 = true;
+        }
+        // Trigger Death correctly
+        if(deadHelper2){
+            deadHelper2 = false;
+            animator.SetBool("isDead",false);
+        }
+        if(deadHelper){
+            deadHelper = false;
+            deadHelper2 = true;
+        }
     }
 
     private void SetPrevAnimation()
@@ -47,7 +69,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         {
             SetAnimatorBools(false, false, true, false);
         }
-        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("stagger"))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("playerStagger"))
         {
             SetAnimatorBools(false, false, false, true);
         }
@@ -59,13 +81,39 @@ public class PlayerAnimationHandler : MonoBehaviour
         if (animatorRoll && !animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
         {
             playerMovement.isRolling = false;
+            playerMovement.canAct = true;
             animator.SetBool("isRolling", false);
+        }
+        else if(animatorHit && !animator.GetCurrentAnimatorStateInfo(0).IsName("hit")){
+            playerMovement.isAttacking = false;
+            playerMovement.canAct = true;
+            animator.SetBool("isLightHitting",false);
+        }
+        else if(animatorStagger && !animator.GetCurrentAnimatorStateInfo(0).IsName("playerStagger")){
+            playerMovement.canAct = true;
+            animator.SetBool("isLightHitting",false);
         }
        
     }
 
     public void StartRoll() {
         animator.SetBool("isRolling", true);
+    }
+
+    public void StartAttack(){
+        animator.SetBool("isLightHitting", true);
+    }
+
+    public void StartStagger(){
+        animator.SetBool("isHit",true);
+        staggerHelper = true;
+        
+    }
+
+    public void StartDeath(){
+        animator.SetBool("isDead",true);
+        playerMovement.canBeHit = false;
+        deadHelper = true;
     }
 
     private void SetAnimatorBools(bool roll, bool hit, bool hit2, bool stagger) { 
