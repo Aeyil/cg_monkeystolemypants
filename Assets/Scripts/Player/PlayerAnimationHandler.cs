@@ -1,21 +1,78 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationHandler : MonoBehaviour
 {
-
+    PlayerMovement playerMovement;
     Animator animator;
     public float velocity = 0.0f;
+    public bool isRolling;
+    public bool isRollAnimation;
+    int PrevAnimationHash;
+    bool animatorRoll;
+    bool animatorHit;
+    bool animatorHit2;
+    bool animatorStagger;
+
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update() {
         animator.SetFloat("Velocity", velocity);
+        
+
+        CheckAnimationTransition();
+        //PrevAnimationHash = animator.GetCurrentAnimatorStateInfo(0);
+        SetPrevAnimation();
+    }
+
+    private void SetPrevAnimation()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
+        {
+            SetAnimatorBools(true, false, false, false);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("hit"))
+        {
+            SetAnimatorBools(false, true, false, false);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("hit2"))
+        {
+            SetAnimatorBools(false, false, true, false);
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("stagger"))
+        {
+            SetAnimatorBools(false, false, false, true);
+        }
+        else SetAnimatorBools(false, false, false, false);
+
+    }
+
+    private void CheckAnimationTransition() {
+        if (animatorRoll && !animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
+        {
+            playerMovement.isRolling = false;
+            animator.SetBool("isRolling", false);
+        }
+       
+    }
+
+    public void StartRoll() {
+        animator.SetBool("isRolling", true);
+    }
+
+    private void SetAnimatorBools(bool roll, bool hit, bool hit2, bool stagger) { 
+        animatorRoll = roll;
+        animatorHit = hit;
+        animatorHit2 = hit2;
+        animatorStagger = stagger;
     }
 
 /*
