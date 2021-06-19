@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         input.PlayerControls.Movement.performed += ctx => HandleMovementInput(ctx);
         input.PlayerControls.Movement.canceled += ctx => HandleMovementInput(ctx);
         input.PlayerControls.Run.performed += ctx => HandleSprinting(ctx);
-        input.PlayerControls.Roll.performed += ctx => handleRolling(ctx);
+        input.PlayerControls.Roll.performed += ctx => HandleRolling(ctx);
         input.PlayerControls.Attack.performed += ctx => HandleAttack(ctx);
     }
 
