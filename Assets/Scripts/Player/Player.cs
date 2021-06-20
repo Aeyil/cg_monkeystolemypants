@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
         }
         else{
             Health -= damageTaken;
+            playerMovement.GetHit();
         }
     }
 }
