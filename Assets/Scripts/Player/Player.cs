@@ -17,13 +17,15 @@ public class Player : MonoBehaviour
     }
 
     public void TakeDamage(int damageTaken){
-        if(Health - damageTaken <= 0){
-            Health = 0;
-            playerMovement.Die();
-        }
-        else{
-            Health -= damageTaken;
-            playerMovement.GetHit();
+        if(playerMovement.canBeHit){
+            if(Health - damageTaken <= 0){
+                Health = 0;
+                playerMovement.Die();
+            }
+            else{
+                Health -= damageTaken;
+                playerMovement.GetHit();
+            }
         }
     }
 }

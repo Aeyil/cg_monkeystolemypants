@@ -230,8 +230,19 @@
                 },
                 {
                     "name": "",
+                    "id": "68649b14-8e33-4d65-b45e-3810f9a7f79d",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "TestButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "77327ad7-76e3-4037-a5f6-cca902922c53",
-                    "path": "<Keyboard>/u",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",

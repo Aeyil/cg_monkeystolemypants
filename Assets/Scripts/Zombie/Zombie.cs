@@ -13,15 +13,17 @@ public class Zombie : MonoBehaviour
     }
 
     public void GetHit(int damageTaken){
-        if (Health - damageTaken <= 0)
-        {
-            Health = 0;
-            zombieAi.StartDead();
-        }
-        else
-        {
-            Health -= damageTaken;
-            zombieAi.StartStagger();
+        if(zombieAi.aiState != ZombieAI.AIState.dead){
+            if (Health - damageTaken <= 0)
+            {
+                Health = 0;
+                zombieAi.StartDead();
+            }
+            else
+            {
+                Health -= damageTaken;
+                zombieAi.StartStagger();
+            }
         }
     }
 }

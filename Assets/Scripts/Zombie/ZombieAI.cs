@@ -30,57 +30,23 @@ public class ZombieAI : MonoBehaviour
     float hitOffset = 0.5f;
     float hitStart;
 
+    float LastStateHandleCall;
+    float StateHandleOffset = 0.25f;
+
     // Start is called before the first frame update
     void Start()
     {
         zombie = GetComponent<Zombie>();
         nm = GetComponent<NavMeshAgent>();
-        StartCoroutine(Think());
         target = GameObject.FindGameObjectWithTag("Player").transform;
-
+        hasDamaged = true;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (!hasDamaged && Time.time > hitStart + hitOffset)
-        {
-            CheckForHit();
-            hasDamaged = true;
-        }
-        if (aiState == AIState.staggered)
-        {
-            if (staggerHelper2)
-            {
-                staggerHelper2 = false;
-                animator.SetBool("isHit", false);
-            }
-            if (staggerHelper)
-            {
-                staggerHelper = false;
-                staggerHelper2 = true;
-            }
-        }
-
-        if (aiState == AIState.dead)
-        {
-            if (deadHelper2)
-            {
-                deadHelper2 = false;
-                animator.SetBool("isDead", false);
-            }
-            if (deadHelper)
-            {
-                deadHelper = false;
-                deadHelper2 = true;
-            }
-        }
-    }
-
-    IEnumerator Think() {
-
-        while (true) {
+        if(LastStateHandleCall +  StateHandleOffset < Time.time){
             switch (aiState)
             {
                 case AIState.idle:
@@ -128,19 +94,53 @@ public class ZombieAI : MonoBehaviour
                         animator.SetBool("isHit", false);
                     }
                     break;
+                case AIState.dead:
+                    nm.SetDestination(transform.position);
+                    break;
                 default:
                     break;
             }
-            
-            yield return new WaitForSeconds(0.25f);
+            LastStateHandleCall = Time.time;
         }
 
-        
+        if (!hasDamaged && Time.time > hitStart + hitOffset)
+        {
+            CheckForHit();
+            hasDamaged = true;
+        }
+        if (aiState == AIState.staggered)
+        {
+            if (staggerHelper2)
+            {
+                staggerHelper2 = false;
+                animator.SetBool("isHit", false);
+            }
+            if (staggerHelper)
+            {
+                staggerHelper = false;
+                staggerHelper2 = true;
+            }
+        }
+
+        if (aiState == AIState.dead)
+        {
+            if (deadHelper2)
+            {
+                deadHelper2 = false;
+                animator.SetBool("isDead", false);
+            }
+            if (deadHelper)
+            {
+                deadHelper = false;
+                deadHelper2 = true;
+            }
+        }
     }
 
     public void StartHit() {
         animator.SetBool("Attacking", true);
         aiState = AIState.attack;
+        hitStart = Time.time;
         hasDamaged = false;
     }
 
@@ -156,15 +156,19 @@ public class ZombieAI : MonoBehaviour
     }
 
     public void StartDead() {
+        GetComponent<CapsuleCollider>().enabled = false;
         aiState = AIState.dead;
-        animator.SetBool("isDead", true);
+        animator.SetBool("Attacking", false);
         animator.SetBool("isHit", false);
+        animator.SetBool("isDead", true);
         deadHelper = true;
+        deadHelper2 = false;
     }
 
     public void StartStagger() {
         aiState = AIState.staggered;
         animator.SetBool("isHit", true);
         staggerHelper = true;
+        staggerHelper2 = false;
     }
 }
