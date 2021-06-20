@@ -10,7 +10,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     public float velocity = 0.0f;
     public bool isRolling;
     public bool isRollAnimation;
-    int PrevAnimationHash;
     bool animatorRoll;
     bool animatorHit;
     bool animatorHit2;
@@ -115,13 +114,14 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void StartStagger(){
         animator.SetBool("isHit",true);
         staggerHelper = true;
-        
+        staggerHelper2 = false;
     }
 
     public void StartDeath(){
         animator.SetBool("isDead",true);
         playerMovement.canBeHit = false;
         deadHelper = true;
+        deadHelper2 = false;
     }
 
     private void SetAnimatorBools(bool roll, bool hit, bool hit2, bool stagger) { 

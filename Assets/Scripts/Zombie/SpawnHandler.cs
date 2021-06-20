@@ -25,6 +25,7 @@ public class SpawnHandler : MonoBehaviour
     void Start()
     {
         spawners = new GameObject[5];
+        
 
         for (int i = 0; i < spawners.Length; i++)
         {

@@ -84,21 +84,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
    
-    public void GetHit(int damageTaken){
-        if(!isRolling && canBeHit){
-            isAttacking = false;
-            canAct = false;
-            animationHandler.StartStagger();
-            player.TakeDamage(damageTaken);
-        }
+    public void GetHit(){
+        isAttacking = false;
+        canAct = false;
+        animationHandler.StartStagger();
     }
 
     public void Die(){
-        if(canBeHit){
-            isAttacking = false;
-            canAct = false;
-            animationHandler.StartDeath();
-        }
+        isAttacking = false;
+        canAct = false;
+        animationHandler.StartDeath();
     }
 
     public void checkAttackTargets(){
