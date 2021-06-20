@@ -372,7 +372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258223236}
-  m_LocalRotation: {x: 0.089242734, y: -0.000000029991018, z: 0.0000000026872033, w: 0.99600995}
+  m_LocalRotation: {x: 0.08924273, y: -0.000000011407381, z: 0.0000000010221042, w: 0.99600995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409821654}
-  m_LocalRotation: {x: 0.14198703, y: -1.799712e-17, z: -3.0174993e-17, w: 0.9898685}
+  m_LocalRotation: {x: 0.14198703, y: -0.0000000093873265, z: 0.0000000013465207, w: 0.9898686}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -995,7 +995,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135397471}
-  m_LocalRotation: {x: 0.089242734, y: -0.000000029991018, z: 0.0000000026872033, w: 0.99600995}
+  m_LocalRotation: {x: 0.089242734, y: 0.000000020092513, z: -0.0000000018002944, w: 0.99600995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1206,7 +1206,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299088572}
-  m_LocalRotation: {x: 0.08924274, y: -0.000000029991018, z: 0.0000000026872036, w: 0.99600995}
+  m_LocalRotation: {x: 0.08924274, y: 0.000000020092509, z: -0.0000000018002937, w: 0.99600995}
   m_LocalPosition: {x: 8.5, y: 1.8, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1247,23 +1247,3 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1830877924 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2209960803142712820, guid: e32466414f4b60844ac75440e8946f31, type: 3}
-  m_PrefabInstance: {fileID: 487926987}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1830877930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830877924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d41f7faee4e35944bccd1b6d7d1869d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 100
-  Damage: 10
-  Armor: 0

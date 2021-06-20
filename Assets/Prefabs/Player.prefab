@@ -893,6 +893,7 @@ GameObject:
   - component: {fileID: 7113087634553189385}
   - component: {fileID: 4112134620686459259}
   - component: {fileID: 7206156001291619116}
+  - component: {fileID: 1830877930}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -953,6 +954,7 @@ MonoBehaviour:
   velocity: 0
   isRolling: 0
   isRollAnimation: 0
+  attackDelay: 0
 --- !u!143 &7113087634553189385
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1069,6 +1071,21 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1830877930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209960803142712820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d41f7faee4e35944bccd1b6d7d1869d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Damage: 10
+  Armor: 0
 --- !u!1 &2221339289741709306
 GameObject:
   m_ObjectHideFlags: 0

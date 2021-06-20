@@ -21,6 +21,10 @@ public class PlayerAnimationHandler : MonoBehaviour
     bool deadHelper;
     bool deadHelper2;
 
+    float attackTime;
+    bool hasDamaged;
+    [SerializeField] float attackDelay = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +38,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 
         CheckAnimationTransition();
         SetPrevAnimation();
+        DoAttack();
 
         // Trigger Stagger correctly
         if(staggerHelper2){
@@ -82,6 +87,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         {
             playerMovement.isRolling = false;
             playerMovement.canAct = true;
+            playerMovement.canBeHit = true;
             animator.SetBool("isRolling", false);
         }
         else if(animatorHit && !animator.GetCurrentAnimatorStateInfo(0).IsName("hit")){
@@ -102,6 +108,8 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     public void StartAttack(){
         animator.SetBool("isLightHitting", true);
+        attackTime = Time.time;
+        hasDamaged = false;
     }
 
     public void StartStagger(){
@@ -121,6 +129,13 @@ public class PlayerAnimationHandler : MonoBehaviour
         animatorHit = hit;
         animatorHit2 = hit2;
         animatorStagger = stagger;
+    }
+
+    private void DoAttack(){
+        if((animatorHit || animatorHit2) && !hasDamaged && Time.time > attackTime+attackDelay){
+            playerMovement.checkAttackTargets();
+            hasDamaged = true;
+        }
     }
 
 /*

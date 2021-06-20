@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
 
     CharacterController controller;
+    PlayerAnimationHandler animationHandler;
+    Player player;
     [SerializeField] Transform camera;
-    // Start is called before the first frame update
-
     InputMaster input;
 
     float turnSmoothVelocity;
@@ -30,7 +30,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canAct;
     public bool canBeHit;
 
-    PlayerAnimationHandler animationHandler;
+    float damageTimeStart;
+    float damageTimeOffset = 0.5f;
+
 
     void Awake() {
         input = new InputMaster();
@@ -46,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animationHandler = GetComponent<PlayerAnimationHandler>();
+        player = GetComponent<Player>();
         canAct = true;
         canBeHit = true;
     }
@@ -59,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isRolling = true;
             canAct = false;
+            canBeHit = false;
             animationHandler.StartRoll();
         }
     }
@@ -80,11 +84,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
    
-    public void GetHit(){
+    public void GetHit(int damageTaken){
         if(!isRolling && canBeHit){
             isAttacking = false;
             canAct = false;
             animationHandler.StartStagger();
+            player.TakeDamage(damageTaken);
         }
     }
 
@@ -93,6 +98,15 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
             canAct = false;
             animationHandler.StartDeath();
+        }
+    }
+
+    public void checkAttackTargets(){
+        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + new Vector3(-1,0,0), transform.localScale / 2, Quaternion.identity);
+        for(int i = 0; i < hitColliders.Length; i++){
+            if(hitColliders[i].tag == "Enemy"){
+                hitColliders[i].GetComponent<Zombie>().GetHit(player.Damage);
+            }
         }
     }
 
