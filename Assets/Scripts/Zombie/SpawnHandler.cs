@@ -43,7 +43,8 @@ public class SpawnHandler : MonoBehaviour
     private void SpawnEnemy() {
 
         int randSpawner = Random.Range(0, spawners.Length);
-        Instantiate(enemy, spawners[randSpawner].transform.position, spawners[randSpawner].transform.rotation);
+        GameObject zombie = Instantiate(enemy, spawners[randSpawner].transform.position, spawners[randSpawner].transform.rotation);
+        zombie.SetActive(true);
     }
 
     private void StartWave(InputAction.CallbackContext value) {

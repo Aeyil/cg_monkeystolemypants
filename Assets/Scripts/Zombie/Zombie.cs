@@ -12,6 +12,8 @@ public class Zombie : MonoBehaviour
     {
         zombieAi = GetComponent<ZombieAI>();
         spawnHandler = GetComponent<SpawnHandler>();
+        Health += WorldInfo.waveNumber * 10;
+        Damage += WorldInfo.waveNumber * 5;
     }
 
     public void GetHit(int damageTaken){
