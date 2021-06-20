@@ -6,20 +6,16 @@ using UnityEngine.InputSystem;
 
 public class SpawnHandler : MonoBehaviour
 {
-    private int waveNumber = 0;
-    private int enemySpawnAmount = 0;
-    private int enemiesKilled = 0;
-
     public GameObject[] spawners;
     public GameObject enemy;
     InputMaster input;
+
 
     void Awake()
     {
         input = new InputMaster();
 
         input.PlayerControls.TestButton.performed += ctx => StartWave(ctx);
-        input.PlayerControls.TestButton2.performed += ctx => killEnemies(ctx);
 
     }
     void Start()
@@ -31,12 +27,17 @@ public class SpawnHandler : MonoBehaviour
         {
             spawners[i] = transform.GetChild(i).gameObject;
         }
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (WorldInfo.enemiesKilled == WorldInfo.enemySpawnAmount && WorldInfo.enemySpawnAmount != 0)
+        {
+            nextWave();
+        }
     }
 
     private void SpawnEnemy() {
@@ -46,38 +47,20 @@ public class SpawnHandler : MonoBehaviour
     }
 
     private void StartWave(InputAction.CallbackContext value) {
-        waveNumber = 1;
-        enemySpawnAmount = 2;
-        enemiesKilled = 0;
-
-        for (int i = 0; i < enemySpawnAmount; i++)
+        WorldInfo.FirstWave();
+        for (int i = 0; i < WorldInfo.enemySpawnAmount; i++)
         {
             SpawnEnemy();
         }
     }
 
     private void nextWave() {
-        waveNumber++;
-        enemySpawnAmount += 2;
-        enemiesKilled = 0;
-
-        for (int i = 0; i < enemySpawnAmount; i++)
+        WorldInfo.NextLevel();
+        for (int i = 0; i < WorldInfo.enemySpawnAmount; i++)
         {
             SpawnEnemy();
         }
     }
-
-    private void killEnemies(InputAction.CallbackContext value) {
-        // aint working
-        for (int i = 0; i <= enemySpawnAmount; i++)
-        {
-            Destroy(enemy);
-        }
-        nextWave();
-    }
-
-
-
 
     private void OnEnable()
     {
