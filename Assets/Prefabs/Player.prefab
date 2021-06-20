@@ -953,7 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 0
   isRolling: 0
-  isRollAnimation: 0
+  isRollAnimation: 1
   attackDelay: 0
 --- !u!143 &7113087634553189385
 CharacterController:
