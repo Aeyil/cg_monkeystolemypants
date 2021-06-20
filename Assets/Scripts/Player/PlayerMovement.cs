@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 currentMovement;
     [SerializeField] float speed = 3f;
     [SerializeField] float sprintSpeed= 5f;
-    [SerializeField] float rollSpeed = 15f;
+    [SerializeField] float rollSpeed = 5f;
 
     public bool isMoving;
     public bool isSprinting;
