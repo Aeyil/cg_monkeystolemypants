@@ -44,6 +44,22 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TestButton",
+                    "type": "Button",
+                    "id": "845e760d-166b-45a8-b01e-b7326f789a58",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TestButton2",
+                    "type": "Button",
+                    "id": "6f8405d5-3643-4e6f-ad33-dc472e7987e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -198,6 +214,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5af96d8b-ffc9-464c-937d-7a791ca0dd56",
+                    "path": "<Keyboard>/t",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard+Mouse",
+                    "action": "TestButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77327ad7-76e3-4037-a5f6-cca902922c53",
+                    "path": "<Keyboard>/u",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestButton2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
