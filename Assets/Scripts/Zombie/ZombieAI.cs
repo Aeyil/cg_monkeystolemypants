@@ -6,169 +6,140 @@ using UnityEngine.AI;
 public class ZombieAI : MonoBehaviour
 {
 
+    Animator animator;
+    Zombie zombie;
     NavMeshAgent nm;
-    public Transform target;
+    Transform target;
 
-    public float distanceThreshhold = 10f;
+    public float detectionThreshhold = 10f;
     public float attackThreshhold = 1.0f;
 
-    public bool staggerHelper;
-    public bool staggerHelper2;
+    public bool isMoving;
+    public bool isAttacking;
+    public bool isStaggered;
+    public bool isDead;
 
-    public bool deadHelper;
-    public bool deadHelper2;
-
-    Zombie zombie;
-
-    public enum AIState { idle, chasing, attack, staggered, dead};
-
-    public AIState aiState = AIState.idle;
-
-    public Animator animator;
-
+    float attackStart;
+    float attackOffset = 0.5f;
     bool hasDamaged;
-    float hitOffset = 0.5f;
-    float hitStart;
 
-    float LastStateHandleCall;
-    float StateHandleOffset = 0.25f;
-
-    // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         zombie = GetComponent<Zombie>();
         nm = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         hasDamaged = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if(LastStateHandleCall +  StateHandleOffset < Time.time){
-            switch (aiState)
-            {
-                case AIState.idle:
-                    float dist = Vector3.Distance(target.position, transform.position);
-                    if (dist < distanceThreshhold)
-                    {
-                        aiState = AIState.chasing;
-                        animator.SetBool("Chasing", true);
-                    }
-                    nm.SetDestination(transform.position);
-                    break;
-                case AIState.chasing:
-                    dist = Vector3.Distance(target.position, transform.position);
-                    if (dist > distanceThreshhold)
-                    {
-                        aiState = AIState.idle;
-                        animator.SetBool("Chasing", false);
-                    }
-                    if (dist < attackThreshhold)
-                    {
-                        StartHit();
-                    }
-                    nm.SetDestination(target.position);
-                    break;
-                case AIState.attack:
-                    animator.SetBool("Attacking", false);
-                    nm.SetDestination(transform.position);
-                    dist = Vector3.Distance(target.position, transform.position);
-
-                    if (dist > attackThreshhold)
-                    {
-                        aiState = AIState.chasing;
-                        animator.SetBool("Attacking", false);
-                    }
-                    else if (!animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_hitting"))
-                    {
-                        StartHit();
-                    }           
-                    break;
-                case AIState.staggered:
-
-                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_stagger"))
-                    {
-                        aiState = AIState.idle;
-                        animator.SetBool("isHit", false);
-                    }
-                    break;
-                case AIState.dead:
-                    nm.SetDestination(transform.position);
-                    break;
-                default:
-                    break;
+        SetCurrentAnimation();
+        if(!isDead){
+            float distance = Vector3.Distance(target.position, transform.position);
+            if(distance < attackThreshhold){
+                Attack();
             }
-            LastStateHandleCall = Time.time;
+            else if(distance < detectionThreshhold){
+                Move();
+            }
+            else{
+                animator.SetBool("Chasing",false);
+            }
+            handleAttack();
+            handleMove();
+            handleStagger();
         }
-
-        if (!hasDamaged && Time.time > hitStart + hitOffset)
-        {
-            CheckForHit();
-            hasDamaged = true;
-        }
-        if (aiState == AIState.staggered)
-        {
-            if (staggerHelper2)
-            {
-                staggerHelper2 = false;
-                animator.SetBool("isHit", false);
-            }
-            if (staggerHelper)
-            {
-                staggerHelper = false;
-                staggerHelper2 = true;
-            }
-        }
-
-        if (aiState == AIState.dead)
-        {
-            if (deadHelper2)
-            {
-                deadHelper2 = false;
-                animator.SetBool("isDead", false);
-            }
-            if (deadHelper)
-            {
-                deadHelper = false;
-                deadHelper2 = true;
-            }
+        else{
+            handleDeath();
         }
     }
 
-    public void StartHit() {
-        animator.SetBool("Attacking", true);
-        aiState = AIState.attack;
-        hitStart = Time.time;
-        hasDamaged = false;
-    }
-
-    public void CheckForHit() {
-        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + new Vector3(-1, 0, 0), transform.localScale / 2, Quaternion.identity);
-        for (int i = 0; i < hitColliders.Length; i++)
-        {
-            if (hitColliders[i].tag == "Player")
-            {
-                hitColliders[i].GetComponent<Player>().TakeDamage(zombie.Damage);
-            }
+    void Move(){
+        if(!isStaggered && !isAttacking){
+            animator.SetBool("Chasing",true);
         }
     }
 
-    public void StartDead() {
+    void Attack(){
+        if(!isAttacking && !isStaggered){
+            animator.SetBool("Attacking",true);
+            attackStart = Time.time;
+            hasDamaged = false;
+        }
+    }
+
+    public void StartStagger(){
+        animator.SetBool("isHit",true);
+    }
+
+    public void StartDie(){
         GetComponent<CapsuleCollider>().enabled = false;
-        aiState = AIState.dead;
-        animator.SetBool("Attacking", false);
-        animator.SetBool("isHit", false);
-        animator.SetBool("isDead", true);
-        deadHelper = true;
-        deadHelper2 = false;
+        nm.enabled = false;
+        animator.SetBool("isDead",true);
     }
 
-    public void StartStagger() {
-        aiState = AIState.staggered;
-        animator.SetBool("isHit", true);
-        staggerHelper = true;
-        staggerHelper2 = false;
+    void handleAttack(){
+        if(isAttacking){
+            animator.SetBool("Attacking",false);
+            if(!hasDamaged && Time.time > attackStart + attackOffset){
+                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + new Vector3(-1, 0, 0), transform.localScale / 2, Quaternion.identity);
+                for (int i = 0; i < hitColliders.Length; i++)
+                {
+                    if (hitColliders[i].tag == "Player")
+                    {
+                        hitColliders[i].GetComponent<Player>().TakeDamage(zombie.Damage);
+                    }
+                }
+                hasDamaged = true;
+            }
+        }
     }
+
+    void handleDeath(){
+        if(isDead){
+            animator.SetBool("isDead",false); // consider renaming Bool
+        }
+    }
+
+    void handleMove(){
+        if(isMoving){
+            nm.SetDestination(target.position);
+        }
+        else{
+            nm.SetDestination(transform.position);
+        }
+    }
+
+    void handleStagger(){
+        if(isStaggered){
+            animator.SetBool("isHit",false); // TRY THIS OUT
+        }
+    }
+
+    void SetCurrentAnimation(){
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_walking")){
+            SetAnimatorBools(true,false,false,false);
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_hitting")){
+            SetAnimatorBools(false,true,false,false);
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_stagger")){
+            SetAnimatorBools(false,false,true,false);
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("zombie_dying")){
+            SetAnimatorBools(false,false,false,true);
+        }
+        else{
+            SetAnimatorBools(false,false,false,false);
+        }
+    }
+
+    void SetAnimatorBools(bool move, bool attack, bool stagger, bool dead){
+        isMoving = move;
+        isAttacking = attack;
+        isStaggered = stagger;
+        isDead = dead;
+    }
+
 }
