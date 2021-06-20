@@ -57,6 +57,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""845e760d-166b-45a8-b01e-b7326f789a58"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestButton2"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f8405d5-3643-4e6f-ad33-dc472e7987e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -211,6 +227,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5af96d8b-ffc9-464c-937d-7a791ca0dd56"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard+Mouse"",
+                    ""action"": ""TestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77327ad7-76e3-4037-a5f6-cca902922c53"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestButton2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -451,6 +489,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
         m_PlayerControls_Roll = m_PlayerControls.FindAction("Roll", throwIfNotFound: true);
         m_PlayerControls_Camera = m_PlayerControls.FindAction("Camera", throwIfNotFound: true);
+        m_PlayerControls_TestButton = m_PlayerControls.FindAction("TestButton", throwIfNotFound: true);
+        m_PlayerControls_TestButton2 = m_PlayerControls.FindAction("TestButton2", throwIfNotFound: true);
         // MenuControls
         m_MenuControls = asset.FindActionMap("MenuControls", throwIfNotFound: true);
         m_MenuControls_Navigate = m_MenuControls.FindAction("Navigate", throwIfNotFound: true);
@@ -510,6 +550,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Attack;
     private readonly InputAction m_PlayerControls_Roll;
     private readonly InputAction m_PlayerControls_Camera;
+    private readonly InputAction m_PlayerControls_TestButton;
+    private readonly InputAction m_PlayerControls_TestButton2;
     public struct PlayerControlsActions
     {
         private @InputMaster m_Wrapper;
@@ -519,6 +561,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
         public InputAction @Roll => m_Wrapper.m_PlayerControls_Roll;
         public InputAction @Camera => m_Wrapper.m_PlayerControls_Camera;
+        public InputAction @TestButton => m_Wrapper.m_PlayerControls_TestButton;
+        public InputAction @TestButton2 => m_Wrapper.m_PlayerControls_TestButton2;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -543,6 +587,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Camera.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCamera;
+                @TestButton.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
+                @TestButton.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
+                @TestButton.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
+                @TestButton2.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
+                @TestButton2.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
+                @TestButton2.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -562,6 +612,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
+                @TestButton.started += instance.OnTestButton;
+                @TestButton.performed += instance.OnTestButton;
+                @TestButton.canceled += instance.OnTestButton;
+                @TestButton2.started += instance.OnTestButton2;
+                @TestButton2.performed += instance.OnTestButton2;
+                @TestButton2.canceled += instance.OnTestButton2;
             }
         }
     }
@@ -640,6 +696,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+        void OnTestButton(InputAction.CallbackContext context);
+        void OnTestButton2(InputAction.CallbackContext context);
     }
     public interface IMenuControlsActions
     {

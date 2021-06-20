@@ -10,8 +10,9 @@ public class ZombieAI : MonoBehaviour
     public Transform target;
 
     public float distanceThreshhold = 10f;
+    public float attackThreshhold = 1.0f;
 
-    public enum AIState { idle, chasing};
+    public enum AIState { idle, chasing, attack};
 
     public AIState aiState = AIState.idle;
 
@@ -53,13 +54,28 @@ public class ZombieAI : MonoBehaviour
                         aiState = AIState.idle;
                         animator.SetBool("Chasing", false);
                     }
+                    if (dist < attackThreshhold)
+                    {
+                        aiState = AIState.attack;
+                        animator.SetBool("Attacking", true);
+                    }
                     nm.SetDestination(target.position);
+                    break;
+                case AIState.attack:
+                    nm.SetDestination(transform.position);
+                    dist = Vector3.Distance(target.position, transform.position);
+                    if (dist > attackThreshhold)
+                    {
+                        aiState = AIState.chasing;
+                        animator.SetBool("Attacking", false);
+                    }
+                    
                     break;
                 default:
                     break;
             }
             
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }

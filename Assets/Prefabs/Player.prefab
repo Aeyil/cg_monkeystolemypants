@@ -990,7 +990,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   speed: 3
   sprintSpeed: 5
-  rollSpeed: 8
+  rollSpeed: 5
   isMoving: 0
   isSprinting: 0
   isRolling: 0

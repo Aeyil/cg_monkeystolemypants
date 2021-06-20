@@ -606,6 +606,14 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1299088575}
+    - target: {fileID: 4112134620686459259, guid: e32466414f4b60844ac75440e8946f31, type: 3}
+      propertyPath: rollSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141840979973151134, guid: e32466414f4b60844ac75440e8946f31, type: 3}
+      propertyPath: isRollAnimation
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e32466414f4b60844ac75440e8946f31, type: 3}
 --- !u!1 &655411360
