@@ -83,7 +83,7 @@ public class ZombieAI : MonoBehaviour
         if(isAttacking){
             animator.SetBool("Attacking",false);
             if(!hasDamaged && Time.time > attackStart + attackOffset){
-                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + new Vector3(-1, 0, 0), transform.localScale / 2, Quaternion.identity);
+                Collider[] hitColliders = Physics.OverlapBox(new Vector3(transform.position.x,1,transform.position.z) + transform.rotation * Quaternion.Euler(0f,90,0f) * new Vector3(-1f,0,0), new Vector3(1.5f,0f,1.4f) / 2, transform.rotation * Quaternion.Euler(0f,90,0f));
                 for (int i = 0; i < hitColliders.Length; i++)
                 {
                     if (hitColliders[i].tag == "Player")
