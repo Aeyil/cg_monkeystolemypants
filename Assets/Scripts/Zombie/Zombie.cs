@@ -15,13 +15,14 @@ public class Zombie : MonoBehaviour
     }
 
     public void GetHit(int damageTaken){
-        if(zombieAi.aiState != ZombieAI.AIState.dead){
+        if(!zombieAi.isDead){
             if (Health - damageTaken <= 0)
             {
                 Health = 0;
-                zombieAi.StartDead();
+
+                zombieAi.StartDie();
                 WorldInfo.enemiesKilled++;
-                Debug.Log("Zombie killed");
+
             }
             else
             {

@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     float damageTimeStart;
     float damageTimeOffset = 0.5f;
 
-
     void Awake() {
         input = new InputMaster();
 
@@ -97,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void checkAttackTargets(){
-        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position + new Vector3(-1,0,0), transform.localScale / 2, Quaternion.identity);
+        Collider[] hitColliders = Physics.OverlapBox(new Vector3(transform.position.x,1,transform.position.z) + transform.rotation * Quaternion.Euler(0f,90,0f) * new Vector3(-1.2f,0,0), new Vector3(1.5f,0f,1.5f) / 2, transform.rotation * Quaternion.Euler(0f,90,0f));
         for(int i = 0; i < hitColliders.Length; i++){
             if(hitColliders[i].tag == "Enemy"){
                 hitColliders[i].GetComponent<Zombie>().GetHit(player.Damage);
