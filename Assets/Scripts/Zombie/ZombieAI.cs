@@ -20,7 +20,7 @@ public class ZombieAI : MonoBehaviour
     public bool isDead;
 
     float attackStart;
-    float attackOffset = 0.5f;
+    float attackOffset = 0.6f;
     bool hasDamaged;
 
     void Start()
@@ -35,23 +35,30 @@ public class ZombieAI : MonoBehaviour
     void Update()
     {
         SetCurrentAnimation();
-        if(!isDead){
-            float distance = Vector3.Distance(target.position, transform.position);
-            if(distance < attackThreshhold){
-                Attack();
-            }
-            else if(distance < detectionThreshhold){
-                Move();
+        if(target.tag == "Player"){
+            if(!isDead){
+                float distance = Vector3.Distance(target.position, transform.position);
+                if(distance < attackThreshhold){
+                    Attack();
+                }
+                else if(distance < detectionThreshhold){
+                    Move();
+                }
+                else{
+                    animator.SetBool("Chasing",false);
+                }
+                handleAttack();
+                handleMove();
+                handleStagger();
             }
             else{
-                animator.SetBool("Chasing",false);
+                handleDeath();
             }
-            handleAttack();
-            handleMove();
-            handleStagger();
+                
         }
         else{
-            handleDeath();
+            nm.SetDestination(transform.position);
+            animator.SetBool("Chasing",false);
         }
     }
 

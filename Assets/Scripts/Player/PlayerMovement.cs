@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = false;
         canAct = false;
         animationHandler.StartDeath();
+        player.tag = "Player_dead";
     }
 
     public void checkAttackTargets(){
