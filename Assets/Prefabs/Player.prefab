@@ -1084,10 +1084,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d41f7faee4e35944bccd1b6d7d1869d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heatlhBar: {fileID: 0}
+  healthBar: {fileID: 0}
   Health: 100
   Damage: 10
   Armor: 0
+  deathText: {fileID: 0}
 --- !u!1 &2221339289741709306
 GameObject:
   m_ObjectHideFlags: 0
