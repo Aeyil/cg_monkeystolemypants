@@ -122,6 +122,9 @@ public class ZombieAI : MonoBehaviour
         if(isMoving && nm.enabled){
             nm.SetDestination(target.position);
         }
+        else{
+            nm.SetDestination(transform.position);
+        }
     }
 
     void handleStagger(){
