@@ -67,9 +67,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""TestButton2"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
-                    ""id"": ""6f8405d5-3643-4e6f-ad33-dc472e7987e7"",
+                    ""id"": ""cf08c11f-9939-4fcb-ba6d-e5141583c352"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -90,7 +90,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""521c8af7-c8ca-44bc-82f0-65122d3b18e2"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -254,12 +254,23 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""77327ad7-76e3-4037-a5f6-cca902922c53"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press"",
+                    ""id"": ""4d2998eb-c955-4454-ba10-4e723b5546af"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TestButton2"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1c42216-7171-49df-80de-8c658279a8c8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard+Mouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -512,7 +523,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerControls_Roll = m_PlayerControls.FindAction("Roll", throwIfNotFound: true);
         m_PlayerControls_Camera = m_PlayerControls.FindAction("Camera", throwIfNotFound: true);
         m_PlayerControls_TestButton = m_PlayerControls.FindAction("TestButton", throwIfNotFound: true);
-        m_PlayerControls_TestButton2 = m_PlayerControls.FindAction("TestButton2", throwIfNotFound: true);
+        m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
         // MenuControls
         m_MenuControls = asset.FindActionMap("MenuControls", throwIfNotFound: true);
         m_MenuControls_Navigate = m_MenuControls.FindAction("Navigate", throwIfNotFound: true);
@@ -573,7 +584,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Roll;
     private readonly InputAction m_PlayerControls_Camera;
     private readonly InputAction m_PlayerControls_TestButton;
-    private readonly InputAction m_PlayerControls_TestButton2;
+    private readonly InputAction m_PlayerControls_Pause;
     public struct PlayerControlsActions
     {
         private @InputMaster m_Wrapper;
@@ -584,7 +595,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Roll => m_Wrapper.m_PlayerControls_Roll;
         public InputAction @Camera => m_Wrapper.m_PlayerControls_Camera;
         public InputAction @TestButton => m_Wrapper.m_PlayerControls_TestButton;
-        public InputAction @TestButton2 => m_Wrapper.m_PlayerControls_TestButton2;
+        public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -612,9 +623,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @TestButton.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
                 @TestButton.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
                 @TestButton.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton;
-                @TestButton2.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
-                @TestButton2.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
-                @TestButton2.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnTestButton2;
+                @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -637,9 +648,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @TestButton.started += instance.OnTestButton;
                 @TestButton.performed += instance.OnTestButton;
                 @TestButton.canceled += instance.OnTestButton;
-                @TestButton2.started += instance.OnTestButton2;
-                @TestButton2.performed += instance.OnTestButton2;
-                @TestButton2.canceled += instance.OnTestButton2;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -719,7 +730,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnTestButton(InputAction.CallbackContext context);
-        void OnTestButton2(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IMenuControlsActions
     {
