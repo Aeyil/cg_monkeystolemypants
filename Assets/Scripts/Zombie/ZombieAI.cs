@@ -60,12 +60,12 @@ public class ZombieAI : MonoBehaviour
                     handleDeath();
                 }
 
-            }
-            else {
+            }  
+            else{
                 nm.SetDestination(transform.position);
-                animator.SetBool("Chasing", false);
-            } 
-        }
+                animator.SetBool("Chasing",false);
+                handleStagger();
+            }
     }
 
     void Move(){
