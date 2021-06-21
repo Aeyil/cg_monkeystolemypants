@@ -127,6 +127,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void toggleInput(){
+        if(input.PlayerControls.enabled){
+            input.PlayerControls.Disable();
+        }
+        else{
+            input.PlayerControls.Enable();
+        }
+    }
+
     private void OnEnable() {
         input.PlayerControls.Enable();
     }
