@@ -1650,10 +1650,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1830877930, guid: e32466414f4b60844ac75440e8946f31, type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 315288251}
-    - target: {fileID: 1830877930, guid: e32466414f4b60844ac75440e8946f31, type: 3}
       propertyPath: heatlhBar
       value: 
       objectReference: {fileID: 315288251}
@@ -1901,7 +1897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2140412744382435525, guid: 4068864f7b4b56f48b0dcb00383005e1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.289978
+      value: 5.2900085
       objectReference: {fileID: 0}
     - target: {fileID: 2140412744382435525, guid: 4068864f7b4b56f48b0dcb00383005e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

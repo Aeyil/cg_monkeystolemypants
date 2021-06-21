@@ -26,4 +26,10 @@ public static class WorldInfo
         zombieHealth += 10;
         zombieDamage += 5;
     }
+
+    public static void FirstWave() {
+        waveNumber = 1;
+        enemySpawnAmount = 2;
+        enemiesKilled = 0;
+    }
 }
