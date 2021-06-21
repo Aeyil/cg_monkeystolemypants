@@ -16,11 +16,11 @@ public class Player : MonoBehaviour
         Health = PlayerInfo.Health;
         Damage = PlayerInfo.Damage;
         Armor = PlayerInfo.Armor;
-        //heatlhBar.maxValue = PlayerInfo.Health;
+        heatlhBar.maxValue = PlayerInfo.Health;
     }
 
     public void Update(){
-        //heatlhBar.value = Health/100.0f;
+        heatlhBar.value = Health/100.0f;
     }
 
     public void TakeDamage(int damageTaken){
