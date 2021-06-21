@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     }
 
     public void Update(){
-        heatlhBar.value = Health/100.0f;
+        heatlhBar.value = Health;
     }
 
     public void TakeDamage(int damageTaken){

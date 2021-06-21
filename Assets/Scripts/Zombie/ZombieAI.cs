@@ -59,6 +59,7 @@ public class ZombieAI : MonoBehaviour
         else{
             nm.SetDestination(transform.position);
             animator.SetBool("Chasing",false);
+            handleStagger();
         }
     }
 

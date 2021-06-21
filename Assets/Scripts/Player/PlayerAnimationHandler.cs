@@ -17,9 +17,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     bool staggerHelper;
     bool staggerHelper2;
 
-    bool deadHelper;
-    bool deadHelper2;
-
     float attackTime;
     bool hasDamaged;
     [SerializeField] float attackDelay = 0f;
@@ -48,15 +45,6 @@ public class PlayerAnimationHandler : MonoBehaviour
             staggerHelper = false;
             staggerHelper2 = true;
         }
-        // Trigger Death correctly
-        if(deadHelper2){
-            deadHelper2 = false;
-            animator.SetBool("isDead",false);
-        }
-        if(deadHelper){
-            deadHelper = false;
-            deadHelper2 = true;
-        }
     }
 
     private void SetPrevAnimation()
@@ -82,6 +70,11 @@ public class PlayerAnimationHandler : MonoBehaviour
     }
 
     private void CheckAnimationTransition() {
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("death")){
+            animator.SetBool("isDead",false);
+            playerMovement.canBeHit = false;
+            playerMovement.canAct = false;
+        }
         if (animatorRoll && !animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
         {
             playerMovement.isRolling = false;
@@ -120,8 +113,6 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void StartDeath(){
         animator.SetBool("isDead",true);
         playerMovement.canBeHit = false;
-        deadHelper = true;
-        deadHelper2 = false;
     }
 
     private void SetAnimatorBools(bool roll, bool hit, bool hit2, bool stagger) { 
