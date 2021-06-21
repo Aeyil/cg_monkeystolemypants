@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     PlayerMovement playerMovement;
+    public Slider heatlhBar;
     public int Health = 100;
     public int Damage = 10;
     public int Armor = 0;
@@ -14,6 +16,11 @@ public class Player : MonoBehaviour
         Health = PlayerInfo.Health;
         Damage = PlayerInfo.Damage;
         Armor = PlayerInfo.Armor;
+        heatlhBar.maxValue = PlayerInfo.Health;
+    }
+
+    public void Update(){
+        heatlhBar.value = Health/100.0f;
     }
 
     public void TakeDamage(int damageTaken){
