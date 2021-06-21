@@ -36,7 +36,7 @@ public class ZombieAI : MonoBehaviour
         startTime = Time.time;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (Time.time > startTime + waitTime) {
             SetCurrentAnimation();
@@ -64,8 +64,10 @@ public class ZombieAI : MonoBehaviour
             else{
                 nm.SetDestination(transform.position);
                 animator.SetBool("Chasing",false);
+                animator.SetBool("Attacking",false);
                 handleStagger();
             }
+        }
     }
 
     void Move(){
@@ -88,6 +90,7 @@ public class ZombieAI : MonoBehaviour
 
     public void StartDie(){
         GetComponent<CapsuleCollider>().enabled = false;
+        nm.SetDestination(transform.position);
         nm.enabled = false;
         animator.SetBool("isDead",true);
     }
@@ -116,11 +119,8 @@ public class ZombieAI : MonoBehaviour
     }
 
     void handleMove(){
-        if(isMoving){
+        if(isMoving && nm.enabled){
             nm.SetDestination(target.position);
-        }
-        else{
-            nm.SetDestination(transform.position);
         }
     }
 
