@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4049fd259ada0c8478a620807fb8572b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionThreshhold: 10
+  detectionThreshhold: 25
   attackThreshhold: 1.5
   isMoving: 0
   isAttacking: 0

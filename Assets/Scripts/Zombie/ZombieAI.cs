@@ -11,7 +11,7 @@ public class ZombieAI : MonoBehaviour
     NavMeshAgent nm;
     Transform target;
 
-    public float detectionThreshhold = 10f;
+    public float detectionThreshhold = 25f;
     public float attackThreshhold = 1.0f;
 
     public bool isMoving;
@@ -22,6 +22,8 @@ public class ZombieAI : MonoBehaviour
     float attackStart;
     float attackOffset = 0.6f;
     bool hasDamaged;
+    float waitTime;
+    float startTime;
 
     void Start()
     {
@@ -30,35 +32,39 @@ public class ZombieAI : MonoBehaviour
         nm = GetComponent<NavMeshAgent>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         hasDamaged = true;
+        waitTime = Random.Range(0f, 0.25f);
+        startTime = Time.time;
     }
 
     void Update()
     {
-        SetCurrentAnimation();
-        if(target.tag == "Player"){
-            if(!isDead){
-                float distance = Vector3.Distance(target.position, transform.position);
-                if(distance < attackThreshhold){
-                    Attack();
+        if (Time.time > startTime + waitTime) {
+            SetCurrentAnimation();
+            if (target.tag == "Player") {
+                if (!isDead) {
+                    float distance = Vector3.Distance(target.position, transform.position);
+                    if (distance < attackThreshhold) {
+                        Attack();
+                    }
+                    else if (distance < detectionThreshhold) {
+                        Move();
+                    }
+                    else {
+                        animator.SetBool("Chasing", false);
+                    }
+                    handleAttack();
+                    handleMove();
+                    handleStagger();
                 }
-                else if(distance < detectionThreshhold){
-                    Move();
+                else {
+                    handleDeath();
                 }
-                else{
-                    animator.SetBool("Chasing",false);
-                }
-                handleAttack();
-                handleMove();
-                handleStagger();
+
             }
-            else{
-                handleDeath();
-            }
-                
-        }
-        else{
-            nm.SetDestination(transform.position);
-            animator.SetBool("Chasing",false);
+            else {
+                nm.SetDestination(transform.position);
+                animator.SetBool("Chasing", false);
+            } 
         }
     }
 

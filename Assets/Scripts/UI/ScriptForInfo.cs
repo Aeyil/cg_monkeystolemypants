@@ -14,7 +14,7 @@ public class ScriptForInfo : MonoBehaviour
     void Start()
     {
         
-        infoText.text = "Damage: TODO\nHealth: TODO\nZombies: " + WorldInfo.enemySpawnAmount;
+        infoText.text = "Damage: " + WorldInfo.zombieDamage + "\n"  + "Health: " + WorldInfo.zombieHealth + "\n" + "Zombies: " + WorldInfo.enemySpawnAmount;
     }
 
 }

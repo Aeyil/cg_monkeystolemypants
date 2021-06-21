@@ -16,6 +16,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void startGame(){
         PlayerInfo.initialize();
+        WorldInfo.Initialize();
         SceneLoaderInfo.sceneId = 2;
         SceneManager.LoadScene(1);
         Debug.Log("Starting game.");
