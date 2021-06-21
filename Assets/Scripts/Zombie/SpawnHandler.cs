@@ -20,7 +20,6 @@ public class SpawnHandler : MonoBehaviour
     void Awake()
     {
         input = new InputMaster();
-        animator.SetTrigger("fadeIn");
         input.PlayerControls.TestButton.performed += ctx => Trigger(ctx);
         //input.PlayerControls.TestButton2.performed += ctx => nextWave(ctx);
 
@@ -35,6 +34,7 @@ public class SpawnHandler : MonoBehaviour
     void Start()
     {
         animator = GameObject.Find("LevelChanger").GetComponent<Animator>();
+        animator.SetTrigger("fadeIn");
         time = 0;
         delay = 2.5f;
         spawners = new GameObject[10];
