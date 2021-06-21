@@ -262,6 +262,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""TestButton2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57c5b2a7-ca70-4dfb-8d1f-59a534e78dd7"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard+Mouse"",
+                    ""action"": ""TestButton2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
