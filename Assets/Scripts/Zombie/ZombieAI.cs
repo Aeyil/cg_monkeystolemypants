@@ -62,10 +62,13 @@ public class ZombieAI : MonoBehaviour
 
             }  
             else{
-                nm.SetDestination(transform.position);
+                if(nm.enabled){
+                    nm.SetDestination(transform.position);
+                }
                 animator.SetBool("Chasing",false);
                 animator.SetBool("Attacking",false);
                 handleStagger();
+                handleDeath();
             }
         }
     }
@@ -119,11 +122,13 @@ public class ZombieAI : MonoBehaviour
     }
 
     void handleMove(){
-        if(isMoving && nm.enabled){
-            nm.SetDestination(target.position);
-        }
-        else{
-            nm.SetDestination(transform.position);
+        if(nm.enabled){
+            if(isMoving){
+                nm.SetDestination(target.position);
+            }
+            else{
+                nm.SetDestination(transform.position);
+            }
         }
     }
 
