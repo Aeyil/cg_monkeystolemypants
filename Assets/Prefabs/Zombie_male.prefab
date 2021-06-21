@@ -482,7 +482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3087804472691841685
 Transform:
   m_ObjectHideFlags: 0
@@ -543,15 +543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4049fd259ada0c8478a620807fb8572b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  distanceThreshhold: 20
+  detectionThreshhold: 25
   attackThreshhold: 1.5
-  staggerHelper: 0
-  staggerHelper2: 0
-  deadHelper: 0
-  deadHelper2: 0
-  aiState: 0
-  animator: {fileID: -8316681140917897947}
+  isMoving: 0
+  isAttacking: 0
+  isStaggered: 0
+  isDead: 0
 --- !u!195 &1335262441728480500
 NavMeshAgent:
   m_ObjectHideFlags: 0

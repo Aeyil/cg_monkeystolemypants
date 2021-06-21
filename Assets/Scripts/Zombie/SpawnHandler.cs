@@ -37,7 +37,7 @@ public class SpawnHandler : MonoBehaviour
         animator = GameObject.Find("LevelChanger").GetComponent<Animator>();
         time = 0;
         delay = 2.5f;
-        spawners = new GameObject[5];
+        spawners = new GameObject[10];
         helper = false;
         helper2 = false;
 
@@ -66,6 +66,7 @@ public class SpawnHandler : MonoBehaviour
         {
             animator.SetTrigger("fadeOut");
             WorldInfo.NextLevel();
+            Debug.Log("FADEOUT");
             helper2 = true;
         }
         if (helper2 && Time.time > (time + delay*2)) {
@@ -75,7 +76,6 @@ public class SpawnHandler : MonoBehaviour
     }
 
     private void SpawnEnemy() {
-
         int randSpawner = Random.Range(0, spawners.Length);
         GameObject zombie = Instantiate(enemy, spawners[randSpawner].transform.position, spawners[randSpawner].transform.rotation);
         zombie.SetActive(true);

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public int Health = 25;
-    public int Damage = 5;
+    public int Health;
+    public int Damage;
     ZombieAI zombieAi;
     SpawnHandler spawnHandler;
     void Start()
     {
         zombieAi = GetComponent<ZombieAI>();
         spawnHandler = GetComponent<SpawnHandler>();
-        Health += WorldInfo.waveNumber * 10;
-        Damage += WorldInfo.waveNumber * 5;
+        Health = WorldInfo.zombieHealth;
+        Damage = WorldInfo.zombieDamage;
     }
 
     public void GetHit(int damageTaken){
