@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class SpawnHandler : MonoBehaviour
@@ -9,34 +10,67 @@ public class SpawnHandler : MonoBehaviour
     public GameObject[] spawners;
     public GameObject enemy;
     InputMaster input;
+    public Animator animator;
+    float delay;
+    float time;
+    bool helper;
+    bool helper2;
 
 
     void Awake()
     {
         input = new InputMaster();
-
-        input.PlayerControls.TestButton.performed += ctx => StartWave(ctx);
+        animator.SetTrigger("fadeIn");
+        input.PlayerControls.TestButton.performed += ctx => Trigger(ctx);
+        //input.PlayerControls.TestButton2.performed += ctx => nextWave(ctx);
 
     }
+
+    private void Trigger(InputAction.CallbackContext ctx)
+    {
+        animator.SetTrigger("fadeOut");
+
+    }
+
     void Start()
     {
+        animator = GameObject.Find("LevelChanger").GetComponent<Animator>();
+        time = 0;
+        delay = 2.5f;
         spawners = new GameObject[5];
+        helper = false;
+        helper2 = false;
+
+        //nextWave();
+        Debug.Log(WorldInfo.waveNumber);
+        Debug.Log(WorldInfo.enemySpawnAmount);
         
+        animator.SetTrigger("fadeIn");
 
         for (int i = 0; i < spawners.Length; i++)
         {
             spawners[i] = transform.GetChild(i).gameObject;
         }
 
-        
+        StartWave();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (WorldInfo.enemiesKilled == WorldInfo.enemySpawnAmount && WorldInfo.enemySpawnAmount != 0)
+        if (!helper && WorldInfo.enemiesKilled == WorldInfo.enemySpawnAmount) {
+            time = Time.time;
+            helper = true;
+        }
+        if (!helper2 && WorldInfo.enemiesKilled == WorldInfo.enemySpawnAmount && WorldInfo.enemySpawnAmount != 0 && Time.time > (time + delay))
         {
-            nextWave();
+            animator.SetTrigger("fadeOut");
+            WorldInfo.NextLevel();
+            helper2 = true;
+        }
+        if (helper2 && Time.time > (time + delay*2)) {
+            SceneLoaderInfo.sceneId = 3;
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -47,8 +81,8 @@ public class SpawnHandler : MonoBehaviour
         zombie.SetActive(true);
     }
 
-    private void StartWave(InputAction.CallbackContext value) {
-        WorldInfo.FirstWave();
+    private void StartWave() {
+        //WorldInfo.FirstWave();
         for (int i = 0; i < WorldInfo.enemySpawnAmount; i++)
         {
             SpawnEnemy();
@@ -56,11 +90,12 @@ public class SpawnHandler : MonoBehaviour
     }
 
     private void nextWave() {
+
         WorldInfo.NextLevel();
-        for (int i = 0; i < WorldInfo.enemySpawnAmount; i++)
-        {
-            SpawnEnemy();
-        }
+        
+        SceneManager.LoadScene("SampleScene");
+        animator.SetTrigger("fadeOut");
+        
     }
 
     private void OnEnable()
