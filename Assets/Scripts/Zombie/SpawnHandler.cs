@@ -37,7 +37,7 @@ public class SpawnHandler : MonoBehaviour
         animator = GameObject.Find("LevelChanger").GetComponent<Animator>();
         time = 0;
         delay = 2.5f;
-        spawners = new GameObject[5];
+        spawners = new GameObject[10];
         helper = false;
         helper2 = false;
 
